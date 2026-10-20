@@ -35,13 +35,13 @@ def vb_of(parts, pad=8):
 
 OPTS = {
     "1": dict(name="Quarters", sub="MO over DE, in Hollenstein's own letters",
-              idea=["Hollenstein drew an e: a half-disc, a quarter-disc and one hairline closing the bowl. I kept that e exactly as he drew it, built the other three letters from the same parts, and stacked them MO over DE, a compact block like his own mark.",
-                    "Each letter is a coffee, and each still reads as its letter. The m is a square of coffee that drips: two arches bitten up to the fill line, three legs ending in drops. The o is a cup, half full, poured solid below with a hairline above. The D is a mug: the body is the stem, and the handle, a half-ring nearly the full height, is the bowl.",
-                    "The m's arches stop exactly at the o's coffee line, so the top row shares one level, like two cups poured to the same mark."],
+              idea=["Hollenstein drew an e: a half-disc, a quarter-disc and one hairline under the bowl. I kept his e, built the other three letters from the same parts, and stacked them MO over DE, a compact block like his own mark.",
+                    "Each letter is a coffee, and each still reads as its letter. The m is a square of coffee that drips: two arches bitten up to the halfway line, three legs ending in drops. The o is half poured from the side: solid on the right, a hairline on the left. The D is a coffee cup on its saucer: the straight back is the stem, the round belly is the bowl, the handle sits small and high.",
+                    "The o and the e mirror each other: the o is solid on the right, the e on the left. The e's bowl is left open, with only the start of Hollenstein's hairline, so it can never close into a second o."],
               works=["It reads MODE in two short rows: the shapes are the letters, not a puzzle.",
-                     "The coffee is in the letters, not added on: a drip, a cup, a mug.",
+                     "The coffee is in the letters, not added on: a drip, a pour, a cup and saucer.",
                      "Square overall, so it fits a sachet corner, a stamp, a lid or an app icon with no reworking."],
-              watch=["The o's rim and the e's tail are hairlines. At 32 px and below, use the small-size cut, which draws them heavier.",
+              watch=["The o's left half and the saucer are hairlines. At 32 px and below, use the small-size cut, which draws them heavier.",
                      "Always keep MO on top and DE below. It reads in rows; don't rearrange the four letters."]),
     "2": dict(name="Hold & Finish", sub="capitals, half solid, half line",
               idea=["The reference has one rule at its heart: the solid shapes hold the letter, and a hairline finishes it. The 5 is a square and a line. The e is two solids and a line.",
@@ -81,8 +81,8 @@ def kit(k):
     """The construction: each part named."""
     items = []
     if k == "1":
-        for f, t in ((ec.m_, "m · a square of coffee, dripping"), (ec.o_, "o · a cup, half full"),
-                     (ec.d_, "D · a mug: body and handle"), (ec.e_, "e · Hollenstein's e, unchanged")):
+        for f, t in ((ec.m_, "m · a square of coffee, dripping"), (ec.o_, "o · half poured, from the side"),
+                     (ec.d_, "D · a cup on its saucer"), (ec.e_, "e · Hollenstein's e, left open")):
             g, w = f(0)
             items.append((g, t))
     elif k == "2":
@@ -129,7 +129,7 @@ def sachet_for(k):
     if k == "1":
         word, h = placed(ec.mark("1"), 40, 50, 112, K)
         g, _ = ec.d_(0)
-        mug = fit(draw(g, K), bounds(g), 132, 262, 196)[0]
+        mug = fit(draw(g, K), bounds(g), 116, 286, 148)[0]
         c = (word + lab(50 + h + 22, "COFFEE CONCENTRATE", K) + lab(50 + h + 38, "15 ML · FOLD · SQUEEZE · POUR", K, .75) + mug)
         return sachet(c, CREAM, f"e{k}", 0, 0, 280)
     if k == "2":
@@ -236,7 +236,7 @@ def build():
 </div></header>
 {section("1")}{section("2")}{section("3")}
 <section class="close"><div class="wrap"><h3>My pick</h3>
-  <p>Quarters is the one I'd take forward. It's the closest to the spirit of the reference: real letters made from pure parts, stacked into one block, with a drip, a cup and a mug hidden in them. Pour is the strongest symbol and the best if you want an icon that works without the name. Hold &amp; Finish is the boldest on a shelf. Tell me which to develop.</p></div></section>"""
+  <p>Quarters is the one I'd take forward. It's the closest to the spirit of the reference: real letters made from pure parts, stacked into one block, with a drip, a pour and a cup hidden in them. Pour is the strongest symbol and the best if you want an icon that works without the name. Hold &amp; Finish is the boldest on a shelf. Tell me which to develop.</p></div></section>"""
     page = (TEMPLATE.replace("<title>MODE Three Marks</title>", "<title>MODE After Echoppe</title>")
             .replace("</style>", EXTRA_CSS + "</style>").replace("{{BODY}}", body))
     out = os.path.join(ROOT, "presentation", "mode-echoppe.html")

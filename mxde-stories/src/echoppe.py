@@ -43,7 +43,7 @@ def flat(parts):
 
 
 # ------------------------------------------------------------------ 1 · QUARTERS (lowercase, stacked MO / DE, letter height 0..100)
-LEVEL = 50.0   # the fill line: the o's coffee and the top of the m's counters
+LEVEL = 50.0   # the top of the m's counters: halfway, like everything else in the kit
 STACK = 12.0   # gap between columns and between rows
 
 
@@ -60,26 +60,31 @@ def m_(x, leg=20.0):
 
 
 def o_(x):
-    """The o as a cup: the lower half poured solid, the upper half a hairline."""
+    """The o, half poured from the side: the right half solid, the left half a hairline."""
     cx = x + R
-    return {"solid": half(cx, R + G / 2, R, "down"), "hair": hair(cx, R - G / 2, 180, 360)}, 2 * R
+    return {"solid": half(cx + G, R, R, "right"), "hair": hair(cx, R, 90, 270)}, 2 * R + G
 
 
 def ring_half(cx, cy, ro, ri, facing):
     return half(cx, cy, ro, facing).difference(disc(cx, cy, ri))
 
 
-def d_(x, body=51.0, ro=46.0, t=17.0):
-    """A mug in profile: the body is the stem, the handle (a half-ring nearly the full height) is the bowl."""
-    return {"solid": unary_union([box(x, 0, x + body, 100), ring_half(x + body + G, R, ro, ro - t, "right")]),
-            "hair": None}, body + G + ro
+def d_(x, bw=76.0, top=16.0, base=90.0, rb=60.0, hro=17.0, ht=7.5):
+    """A coffee cup in profile: flat rim, straight back (the stem), a round belly (the bowl),
+    a small handle high on the side, and a hairline saucer."""
+    body = unary_union([box(x, top, x + bw, base - rb), box(x, base - rb - 0.01, x + bw - rb, base),
+                        quarter(x + bw - rb, base - rb, rb, "se")])
+    handle = ring_half(x + bw + G - 2, top + hro + 4, hro, hro - ht, "right")
+    saucer = line((x - 8, 100 - W / 2 - 2), (x + bw + 14, 100 - W / 2 - 2))
+    return {"solid": unary_union([body, handle]), "hair": saucer}, bw + G + hro
 
 
 def e_(x):
-    """Hollenstein's e, kept as drawn: left half-disc, top-right quarter, a hairline closing the bowl."""
+    """Hollenstein's e, opened: left half-disc, top-right quarter, and only the start of the hairline,
+    so the bowl stays open and never closes into an o."""
     cx = x + R
     return {"solid": unary_union([half(cx, R, R, "left"), quarter(cx + G, R, R, "ne")]),
-            "hair": hair(cx + G, R, 16, 90)}, 2 * R + G
+            "hair": hair(cx + G, R, 58, 90)}, 2 * R + G
 
 
 def _down(g, dy):
