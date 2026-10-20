@@ -1,0 +1,415 @@
+{
+  "brand": [
+    {
+      "role": "core",
+      "name": "Carbon",
+      "hex": "#151515",
+      "rgb": [
+        21,
+        21,
+        21
+      ],
+      "cmyk": [
+        0,
+        0,
+        0,
+        95
+      ],
+      "pantone": "Neutral Black C"
+    },
+    {
+      "role": "core",
+      "name": "Graphite",
+      "hex": "#4A4C4F",
+      "rgb": [
+        74,
+        76,
+        79
+      ],
+      "cmyk": [
+        0,
+        2,
+        0,
+        80
+      ],
+      "pantone": "Cool Gray 11 C"
+    },
+    {
+      "role": "core",
+      "name": "Stone",
+      "hex": "#888B8D",
+      "rgb": [
+        136,
+        139,
+        141
+      ],
+      "cmyk": [
+        2,
+        0,
+        0,
+        52
+      ],
+      "pantone": "Cool Gray 8 C"
+    },
+    {
+      "role": "core",
+      "name": "Silver",
+      "hex": "#C8C9C7",
+      "rgb": [
+        200,
+        201,
+        199
+      ],
+      "cmyk": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "pantone": "877 C (metallic foil) / Cool Gray 3 C (flat)"
+    },
+    {
+      "role": "ground",
+      "name": "White",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "cmyk": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pantone": "— (paper white)"
+    },
+    {
+      "role": "ground",
+      "name": "Paper",
+      "hex": "#F4F2ED",
+      "rgb": [
+        244,
+        242,
+        237
+      ],
+      "cmyk": [
+        2,
+        2,
+        5,
+        2
+      ],
+      "pantone": "Warm Gray 1 C at 30% tint"
+    },
+    {
+      "role": "warm",
+      "name": "Oat",
+      "hex": "#E6DCCB",
+      "rgb": [
+        230,
+        220,
+        203
+      ],
+      "cmyk": [
+        8,
+        10,
+        18,
+        0
+      ],
+      "pantone": "7527 C"
+    },
+    {
+      "role": "warm",
+      "name": "Roast",
+      "hex": "#4B3D2F",
+      "rgb": [
+        75,
+        61,
+        47
+      ],
+      "cmyk": [
+        30,
+        45,
+        60,
+        65
+      ],
+      "pantone": "7533 C"
+    },
+    {
+      "role": "accent",
+      "name": "Tonic",
+      "hex": "#0E6B5E",
+      "rgb": [
+        14,
+        107,
+        94
+      ],
+      "cmyk": [
+        88,
+        20,
+        60,
+        30
+      ],
+      "pantone": "562 C"
+    }
+  ],
+  "modes": [
+    {
+      "key": "wake",
+      "name": "WAKE",
+      "hex": "#2771BE",
+      "rgb": [
+        39,
+        113,
+        190
+      ],
+      "cmyk": [
+        78,
+        42,
+        0,
+        0
+      ],
+      "pantone": "2727 C",
+      "glyph": "▲",
+      "idea": "The X stands up — a rising peak.",
+      "mood": "Crisp, bright, sharp"
+    },
+    {
+      "key": "active",
+      "name": "ACTIVE",
+      "hex": "#0B8457",
+      "rgb": [
+        11,
+        132,
+        87
+      ],
+      "cmyk": [
+        90,
+        10,
+        75,
+        5
+      ],
+      "pantone": "340 C",
+      "glyph": "▶",
+      "idea": "The X points forward — momentum.",
+      "mood": "Energetic, forward-moving"
+    },
+    {
+      "key": "zen",
+      "name": "ZEN",
+      "hex": "#4F758B",
+      "rgb": [
+        79,
+        117,
+        139
+      ],
+      "cmyk": [
+        70,
+        35,
+        22,
+        15
+      ],
+      "pantone": "5405 C",
+      "glyph": "|||",
+      "idea": "The bars stand upright — an aligned, focused mind.",
+      "mood": "Still, centred, balanced"
+    },
+    {
+      "key": "vital",
+      "name": "VITAL",
+      "hex": "#557F22",
+      "rgb": [
+        85,
+        127,
+        34
+      ],
+      "cmyk": [
+        55,
+        10,
+        100,
+        10
+      ],
+      "pantone": "7490 C",
+      "glyph": "+",
+      "idea": "The X turns upright — replenish, add.",
+      "mood": "Fresh, restorative, alive"
+    },
+    {
+      "key": "calm",
+      "name": "CALM",
+      "hex": "#8C6A4E",
+      "rgb": [
+        140,
+        106,
+        78
+      ],
+      "cmyk": [
+        25,
+        45,
+        62,
+        15
+      ],
+      "pantone": "4645 C",
+      "glyph": "≡",
+      "idea": "The bars lie down — a body at rest.",
+      "mood": "Soft, slow, quiet"
+    }
+  ],
+  "text_pairings": [
+    {
+      "text": "Carbon",
+      "ground": "White",
+      "ratio": 18.26,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Carbon",
+      "ground": "Paper",
+      "ratio": 16.32,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Carbon",
+      "ground": "Oat",
+      "ratio": 13.45,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Carbon",
+      "ground": "Silver",
+      "ratio": 10.99,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "Carbon",
+      "ratio": 18.26,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Graphite",
+      "ground": "Paper",
+      "ratio": 7.7,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Stone",
+      "ground": "White",
+      "ratio": 3.43,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Stone",
+      "ground": "Carbon",
+      "ratio": 5.33,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Roast",
+      "ground": "Oat",
+      "ratio": 7.7,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "Tonic",
+      "ratio": 6.4,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Tonic",
+      "ground": "Paper",
+      "ratio": 5.72,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "Paper",
+      "ground": "Roast",
+      "ratio": 9.35,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "WAKE",
+      "ground": "Paper",
+      "ratio": 4.48,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "ACTIVE",
+      "ground": "Paper",
+      "ratio": 4.22,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "ZEN",
+      "ground": "Paper",
+      "ratio": 4.42,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "VITAL",
+      "ground": "Paper",
+      "ratio": 4.22,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "CALM",
+      "ground": "Paper",
+      "ratio": 4.38,
+      "AA_body": false,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "WAKE",
+      "ratio": 5.01,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "ACTIVE",
+      "ratio": 4.72,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "ZEN",
+      "ratio": 4.94,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "VITAL",
+      "ratio": 4.72,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    },
+    {
+      "text": "White",
+      "ground": "CALM",
+      "ratio": 4.9,
+      "AA_body": true,
+      "AA_large_or_graphic": true
+    }
+  ]
+}
