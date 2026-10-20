@@ -3,6 +3,7 @@ with hairline arcs of the same radius finishing what the solids leave out. SVG c
 R = 50: the x-height (or cap height) of 100 is one circle."""
 from shapely.geometry import box, LineString
 from shapely.ops import unary_union
+from shapely import affinity
 from geo import disc, half, arc_line
 
 R = 50.0
@@ -41,12 +42,21 @@ def flat(parts):
     return {k: unary_union([p[k] for p in parts if p.get(k) is not None]) for k in ("solid", "hair")}
 
 
-# ------------------------------------------------------------------ 1 · QUARTERS (lowercase, x-height 0..100)
-def m_(x):
-    """Two quarter shoulders over two squares, cut at the centre line like the e."""
-    s = unary_union([quarter(x, R, R, "ne"), quarter(x + R + G, R, R, "ne"),
-                     box(x, R + G, x + R, 2 * R), box(x + R + G, R + G, x + 2 * R + G, 2 * R)])
-    return {"solid": s, "hair": None}, 2 * R + G
+# ------------------------------------------------------------------ 1 · QUARTERS (lowercase, stacked MO / DE, letter height 0..100)
+LEVEL = 50.0   # the fill line: the o's coffee and the top of the m's counters
+STACK = 12.0   # gap between columns and between rows
+
+
+def m_(x, leg=20.0):
+    """A square of coffee. Two arches are bitten up to the fill line, and the three legs end in drops."""
+    c = (100 - 3 * leg) / 2
+    xs = [x, x + leg + c, x + 2 * leg + 2 * c]
+    s = unary_union([box(x, 0, x + 100, LEVEL)] +
+                    [box(x0, LEVEL - 0.01, x0 + leg, 100 - leg / 2) for x0 in xs] +
+                    [half(x0 + leg / 2, 100 - leg / 2, leg / 2, "down") for x0 in xs])
+    for x0 in xs[:2]:
+        s = s.difference(half(x0 + leg + c / 2, LEVEL, c / 2, "up"))
+    return {"solid": s, "hair": None}, 100
 
 
 def o_(x):
@@ -55,11 +65,14 @@ def o_(x):
     return {"solid": half(cx, R + G / 2, R, "down"), "hair": hair(cx, R - G / 2, 180, 360)}, 2 * R
 
 
-def d_(x):
-    """Bowl and a square stem; the ascender is a hairline rising off the stem and curling over: steam."""
-    cx = x + R
-    stem = box(cx + G, 0, cx + G + R, 2 * R)
-    return {"solid": unary_union([half(cx, R, R, "left"), stem]), "hair": hair(cx + G + R, -A, 180, 270)}, 2 * R + G
+def ring_half(cx, cy, ro, ri, facing):
+    return half(cx, cy, ro, facing).difference(disc(cx, cy, ri))
+
+
+def d_(x, body=51.0, ro=46.0, t=17.0):
+    """A mug in profile: the body is the stem, the handle (a half-ring nearly the full height) is the bowl."""
+    return {"solid": unary_union([box(x, 0, x + body, 100), ring_half(x + body + G, R, ro, ro - t, "right")]),
+            "hair": None}, body + G + ro
 
 
 def e_(x):
@@ -69,9 +82,16 @@ def e_(x):
             "hair": hair(cx + G, R, 16, 90)}, 2 * R + G
 
 
+def _down(g, dy):
+    return {k: (affinity.translate(v, 0, dy) if v is not None else None) for k, v in g.items()}
+
+
 def quarters():
-    parts, w = word([m_, o_, d_, e_], track=12.0)
-    return flat(parts)
+    gm, wm = m_(0)
+    gd, wd = d_(0)
+    col = max(wm, wd) + STACK
+    row = 100 + STACK
+    return flat([gm, o_(col)[0], _down(gd, row), _down(e_(col)[0], row)])
 
 
 # ------------------------------------------------------------------ 2 · HOLD & FINISH (capitals, cap height 0..100)

@@ -34,15 +34,15 @@ def vb_of(parts, pad=8):
 
 
 OPTS = {
-    "1": dict(name="Quarters", sub="lowercase, in Hollenstein's own letters",
-              idea=["Hollenstein drew an e: a half-disc, a quarter-disc and one hairline closing the bowl. I kept that e exactly as he drew it, and built the other three letters of mode from the same parts.",
-                    "The m is two quarter shoulders on two squares, cut at the centre line where the e is cut. The o is a cup, half full: poured solid below, a hairline above. The d's ascender is a hairline that rises off the stem and curls over, like steam off the cup beside it.",
-                    "Read it once and it says mode. Look again and there is a coffee in it, with the steam still rising."],
-              works=["It reads mode at a glance: the shapes are the letters, not a puzzle.",
-                     "The coffee is in the word, not added on: a half-full cup and its steam, both made from type.",
-                     "Lowercase and round, so it feels warm and easy to live with, like an everyday drink."],
-              watch=["Hairlines vanish at small sizes. At 32 px and below, use the small-size cut, which draws them heavier: icons, favicons, tiny print.",
-                     "The steam sets the top of the logo. Give it clear space above, or it looks cramped."]),
+    "1": dict(name="Quarters", sub="MO over DE, in Hollenstein's own letters",
+              idea=["Hollenstein drew an e: a half-disc, a quarter-disc and one hairline closing the bowl. I kept that e exactly as he drew it, built the other three letters from the same parts, and stacked them MO over DE, a compact block like his own mark.",
+                    "Each letter is a coffee, and each still reads as its letter. The m is a square of coffee that drips: two arches bitten up to the fill line, three legs ending in drops. The o is a cup, half full, poured solid below with a hairline above. The D is a mug: the body is the stem, and the handle, a half-ring nearly the full height, is the bowl.",
+                    "The m's arches stop exactly at the o's coffee line, so the top row shares one level, like two cups poured to the same mark."],
+              works=["It reads MODE in two short rows: the shapes are the letters, not a puzzle.",
+                     "The coffee is in the letters, not added on: a drip, a cup, a mug.",
+                     "Square overall, so it fits a sachet corner, a stamp, a lid or an app icon with no reworking."],
+              watch=["The o's rim and the e's tail are hairlines. At 32 px and below, use the small-size cut, which draws them heavier.",
+                     "Always keep MO on top and DE below. It reads in rows; don't rearrange the four letters."]),
     "2": dict(name="Hold & Finish", sub="capitals, half solid, half line",
               idea=["The reference has one rule at its heart: the solid shapes hold the letter, and a hairline finishes it. The 5 is a square and a line. The e is two solids and a line.",
                     "Here that rule is the whole logo. In every capital, the solid part holds the letter and a hairline completes it. M: the shoulders hold, the legs are lines. O: half solid, half line. D: a stem and a line. E: a stem and three lines.",
@@ -67,7 +67,7 @@ OPTS = {
 def plate(k, ink=K, bg="#FFFFFF", caption=True):
     parts = ec.mark(k)
     vb = vb_of(parts, 10)
-    mark = S(vb, draw(parts, ink), "plate-mark" + (" sym" if k == "3" else ""))
+    mark = S(vb, draw(parts, ink), "plate-mark" + {"1": " sq", "3": " sym"}.get(k, ""))
     if not caption:
         cap = ""
     elif k == "3":
@@ -81,8 +81,8 @@ def kit(k):
     """The construction: each part named."""
     items = []
     if k == "1":
-        for f, t in ((ec.m_, "m · two shoulders on two squares"), (ec.o_, "o · a cup, half full"),
-                     (ec.d_, "d · the ascender is steam"), (ec.e_, "e · Hollenstein's e, unchanged")):
+        for f, t in ((ec.m_, "m · a square of coffee, dripping"), (ec.o_, "o · a cup, half full"),
+                     (ec.d_, "D · a mug: body and handle"), (ec.e_, "e · Hollenstein's e, unchanged")):
             g, w = f(0)
             items.append((g, t))
     elif k == "2":
@@ -127,10 +127,10 @@ def sachet_for(k):
     lab = lambda y, t, fill, op=1, anchor="start", x=40: (f'<text x="{x}" y="{y}" font-size="10" fill="{fill}" class="lab" '
                                                          f'text-anchor="{anchor}" opacity="{op}">{t}</text>')
     if k == "1":
-        word, h = placed(ec.mark("1"), 40, 64, 196, K)
-        g, _ = ec.o_(0)
-        cup = fit(draw(g, K), (0, 0, 100, 100), 112, 252, 236)[0]
-        c = (word + lab(150, "COFFEE CONCENTRATE", K) + lab(168, "15 ML · FOLD · SQUEEZE · POUR", K, .75) + cup)
+        word, h = placed(ec.mark("1"), 40, 50, 112, K)
+        g, _ = ec.d_(0)
+        mug = fit(draw(g, K), bounds(g), 132, 262, 196)[0]
+        c = (word + lab(50 + h + 22, "COFFEE CONCENTRATE", K) + lab(50 + h + 38, "15 ML · FOLD · SQUEEZE · POUR", K, .75) + mug)
         return sachet(c, CREAM, f"e{k}", 0, 0, 280)
     if k == "2":
         word, h = placed(ec.mark("2"), 40, 92, 220, K)
@@ -149,9 +149,10 @@ def sachet_for(k):
 
 def icon(k):
     if k == "1":
-        g, _ = ec.o_(0)
-        b, h = fit(draw(g, CREAM), (0, 0, 100, 100), 45, 45, 90)
-        return S((0, 0, 180, 180), f'<rect width="180" height="180" rx="40" fill="{K}"/>' + b, "ic")
+        parts = ec.mark("1", 5.0)
+        b, h = placed(parts, 38, 0, 104, CREAM)
+        return S((0, 0, 180, 180), f'<rect width="180" height="180" rx="40" fill="{K}"/>'
+                 + f'<g transform="translate(0 {(180 - h) / 2:.1f})">{b}</g>', "ic")
     if k == "2":
         g, _ = ec.O_(0)
         b, h = fit(draw(g, CREAM), (0, 0, 103, 100), 43, 45, 92)
@@ -206,6 +207,8 @@ EXTRA_CSS = """
 .wm{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;letter-spacing:.01em}
 .wr{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:400}
 .plate .plate-mark.sym{width:min(100%,300px)}
+.plate .plate-mark.sq{width:min(100%,300px)}
+.row3 .plate .plate-mark.sq{width:min(100%,190px)}
 .grammar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px}
 .g{margin:0;background:var(--surface);border:1px solid var(--line);padding:18px;display:grid;gap:14px;align-content:start}
 .g svg{height:72px;width:auto;max-width:100%;color:#151515}
@@ -233,7 +236,7 @@ def build():
 </div></header>
 {section("1")}{section("2")}{section("3")}
 <section class="close"><div class="wrap"><h3>My pick</h3>
-  <p>Quarters is the one I'd take forward. It's the closest to the spirit of the reference: real letters made from pure parts, and a coffee hidden in the word. Pour is the strongest symbol and the best if you want an icon that works without the name. Hold &amp; Finish is the boldest on a shelf. Tell me which to develop.</p></div></section>"""
+  <p>Quarters is the one I'd take forward. It's the closest to the spirit of the reference: real letters made from pure parts, stacked into one block, with a drip, a cup and a mug hidden in them. Pour is the strongest symbol and the best if you want an icon that works without the name. Hold &amp; Finish is the boldest on a shelf. Tell me which to develop.</p></div></section>"""
     page = (TEMPLATE.replace("<title>MODE Three Marks</title>", "<title>MODE After Echoppe</title>")
             .replace("</style>", EXTRA_CSS + "</style>").replace("{{BODY}}", body))
     out = os.path.join(ROOT, "presentation", "mode-echoppe.html")
