@@ -265,12 +265,12 @@ const films = {
     return { fov: 26, at: (u) => ({ pos: mixV(V(330, 70, 300), V(-60, 150, 470), ease(u)), look: mixV(V(60, 46, 0), V(-10, 42, 0), ease(u)), focus: null }) };
   },
   async 'film-hero'() {
-    ground('#DCD5C9'); lights({ x: -240, y: 380, z: 300, span: 220, radius: 10 });
+    ground('#DCD5C9'); lights({ x: -240, y: 380, z: 300, intensity: 1.45, span: 220, radius: 10 });
     const b = await carton('wake'); b.position.set(40, K.h / 2, -10); b.rotation.y = THREE.MathUtils.degToRad(-16); scene.add(b);
     const c = await carton('calm'); c.position.set(132, K.h / 2, -112); c.rotation.y = THREE.MathUtils.degToRad(8); scene.add(c);
     lay(await sachet('zen'), 112, 58, 20, false, 0.2);
     lay(await sachet('active'), 12, 74, -12);
-    return { fov: 26, at: (u) => ({ pos: mixV(V(-90, 140, 410), V(-66, 104, 318), ease(u)), look: mixV(V(-28, 44, 0), V(-20, 42, 6), ease(u)), focus: null }) };
+    return { fov: 26, at: (u) => ({ pos: mixV(V(-96, 146, 430), V(-84, 122, 372), ease(u)), look: mixV(V(-34, 44, 0), V(-30, 44, 4), ease(u)), focus: null }) };
   },
 };
 
