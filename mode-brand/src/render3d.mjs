@@ -18,7 +18,8 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const port = server.address().port;
 fs.writeFileSync(path.join(ROOT, 'src', 'scene.html'),
-  '<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;overflow:hidden;background:#000}</style></head>' +
+  '<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;overflow:hidden;background:#000}</style>' +
+  '<script type="importmap">{"imports":{"three":"./three.module.js"}}</script></head>' +
   '<body><script type="module" src="scene.js"></script></body></html>');
 
 const all = ['sachets', 'frontback', 'carton', 'range', 'mailer-open', 'mailer-closed', 'tumbler'];

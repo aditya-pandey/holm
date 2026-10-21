@@ -2,6 +2,10 @@
 // Scene is chosen by the URL hash: #sachets, #frontback, #carton, #range, #mailer-open, #mailer-closed, #tumbler
 import * as THREE from './three.module.js';
 import { RoomEnvironment } from './RoomEnvironment.js';
+import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './jsm/postprocessing/RenderPass.js';
+import { BokehPass } from './jsm/postprocessing/BokehPass.js';
+import { OutputPass } from './jsm/postprocessing/OutputPass.js';
 
 const W = window.innerWidth, H = window.innerHeight;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -239,8 +243,60 @@ const scenes = {
   },
 };
 
+// ------------------------------------------------------------------ film shots: a camera path + depth of field
+// Each returns { fov, at(u) -> {pos, look, focus} } for u in 0..1 (eased by the caller).
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const mixV = (a, b, u) => a.clone().lerp(b, u);
+const ease = (u) => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+const films = {
+  async 'film-fan'() {
+    ground('#D3CBBE'); lights({ x: -260, y: 300, z: 140, intensity: 1.75, span: 220, radius: 8 });
+    const P = [['wake', -150, 6, 10, 0], ['active', -75, -8, -6, 0.3], ['zen', 0, 8, 7, 0.6], ['vital', 75, -6, -8, 0.9], ['calm', 150, 6, 6, 1.2]];
+    for (const [k, x, z, r, lift] of P) lay(await sachet(k), x, z, r, false, lift);
+    return { fov: 24, at: (u) => ({ pos: mixV(V(-230, 92, 150), V(150, 112, 175), u), look: mixV(V(-150, 0, 0), V(150, 0, 0), u),
+      focus: null }) };
+  },
+  async 'film-range'() {
+    ground('#D6CEC1'); lights({ x: -280, y: 360, z: 300, span: 260, radius: 9 });
+    const keys = ['wake', 'active', 'zen', 'vital', 'calm'];
+    for (let i = 0; i < 5; i++) {
+      const b = await carton(keys[i]); b.position.set(-152 + i * 76, K.h / 2, (i % 2) * 12); b.rotation.y = THREE.MathUtils.degToRad(-10); scene.add(b);
+    }
+    return { fov: 26, at: (u) => ({ pos: mixV(V(330, 70, 300), V(-60, 150, 470), ease(u)), look: mixV(V(60, 46, 0), V(-10, 42, 0), ease(u)), focus: null }) };
+  },
+  async 'film-hero'() {
+    ground('#DCD5C9'); lights({ x: -240, y: 380, z: 300, span: 220, radius: 10 });
+    const b = await carton('wake'); b.position.set(40, K.h / 2, -10); b.rotation.y = THREE.MathUtils.degToRad(-16); scene.add(b);
+    const c = await carton('calm'); c.position.set(132, K.h / 2, -112); c.rotation.y = THREE.MathUtils.degToRad(8); scene.add(c);
+    lay(await sachet('zen'), 112, 58, 20, false, 0.2);
+    lay(await sachet('active'), 12, 74, -12);
+    return { fov: 26, at: (u) => ({ pos: mixV(V(-90, 140, 410), V(-66, 104, 318), ease(u)), look: mixV(V(-28, 44, 0), V(-20, 42, 6), ease(u)), focus: null }) };
+  },
+};
+
 const name = decodeURIComponent(location.hash.slice(1)) || 'sachets';
+if (name.startsWith('film-')) {
+  films[name]().then((shot) => {
+    const cam = new THREE.PerspectiveCamera(shot.fov, W / H, 5, 5000);
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, cam));
+    const bokeh = new BokehPass(scene, cam, { focus: 400, aperture: 0.00006, maxblur: 0.008 });
+    composer.addPass(bokeh);
+    composer.addPass(new OutputPass());
+    window.frameAt = (u) => {
+      const k = shot.at(u);
+      cam.position.copy(k.pos); cam.lookAt(k.look);
+      bokeh.uniforms.focus.value = k.focus ?? cam.position.distanceTo(k.look);
+      composer.render();
+      return true;
+    };
+    window.frameAt(0);
+    renderer.shadowMap.autoUpdate = false;          // the scene is static: shadows are computed once
+    window.__done = true;
+  }).catch((e) => { window.__error = String(e && e.stack || e); });
+} else {
 scenes[name]().then((cam) => {
   renderer.render(scene, cam);
   requestAnimationFrame(() => { renderer.render(scene, cam); window.__done = true; });
 }).catch((e) => { window.__error = String(e && e.stack || e); });
+}
