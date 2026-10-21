@@ -17,7 +17,7 @@ Start with `guidelines/MODE-Brand-Guidelines.pdf` (or the interactive `guideline
 | `packaging/mailer/`, `packaging/tumbler/` | Lid, inside lid, tumbler wrap |
 | `packaging/renders/` | 3D renders, 1800 × 1200 |
 | `digital/` | Instagram posts and story, e-commerce tile, website hero and header |
-| `film/out/` | `MODE-brand-film-v2-1080p.mp4`: the 30 s film "From sketch to sachet" (1920 × 1080, 30 fps, H.264 + AAC) · v1 `MODE-brand-film-1080p.mp4` · both music tracks |
+| `film/out/` | `MODE-Brand-Film.mp4`: the 30 s film "From sketch to sachet", ready to post (1920 × 1080, 8.6 MB) · `MODE-brand-film-v2-1080p.mp4`: high-bitrate master · v1 film · music |
 | `fonts/` | Instrument Sans, IBM Plex Mono (SIL Open Font License) |
 | `src/` | The generators |
 

@@ -176,7 +176,7 @@ def build():
     toc = [("The idea", "idea"), ("The mark", "mark"), ("Construction", "construction"), ("The four letters", "letters"), ("Clear space and size", "space"),
            ("Small sizes", "small"), ("Colour versions", "versions"), ("Misuse", "misuse"), ("Colour", "colour"), ("Contrast", "contrast"),
            ("Typography", "type"), ("The modes", "range"), ("Sachet", "sachet"), ("Sachet in use", "sachet-renders"), ("Carton", "carton"),
-           ("Carton dieline", "dieline"), ("Mailer", "mailer"), ("Tumbler", "tumbler"), ("Social", "social"), ("Web", "web"), ("Files", "files")]
+           ("Carton dieline", "dieline"), ("Mailer", "mailer"), ("Tumbler", "tumbler"), ("Social", "social"), ("Web", "web"), ("Brand film", "film"), ("Files", "files")]
     P("contents", '<p class="mono eyebrow">Contents</p><ol class="toc">' + "".join(f'<li><a href="#{a}">{esc(t)}</a></li>' for t, a in toc) + "</ol>", "Contents")
     # 3 idea
     P("idea", '<a id="idea"></a><div class="split"><div><p class="mono eyebrow">The idea</p><h2>Every letter of MODE is a coffee.</h2>'
@@ -315,7 +315,19 @@ def build():
     P("web", f'<a id="web"></a><p class="mono eyebrow">Web</p><figure class="hero-img"><img src="{img["website-hero"]}" alt="Website hero"></figure>'
              f'<figure class="hdr"><img src="{img["website-header"]}" alt="Website header and favicon in a browser tab"></figure>'
              '<p class="note">Tonic is reserved for the one action that matters on a screen (here, Shop the range). Header mark 44–58 px wide.</p>', "Web")
-    # 23 files
+    # 23 film
+    shutil.copy(os.path.join(ROOT, "film/out/MODE-Brand-Film.mp4"), os.path.join(A, "MODE-Brand-Film.mp4"))
+    img["film-poster"] = asset("film/out/MODE-Brand-Film-poster.jpg", "film-poster.jpg", 1600, 86)
+    img["film-board"] = asset("film/out/MODE-Brand-Film-storyboard.jpg", "film-storyboard.jpg", 1960, 86)
+    P("film-pg", '<a id="film"></a><div class="split wide-r"><div><p class="mono eyebrow">Brand film</p><h2>From sketch to sachet.</h2>'
+                 '<div class="prose"><p>Thirty seconds at 128 BPM. The mark is derived on paper, pencil and compass first and then ink, with a cut on every beat: one radius, one cut, one hairline. Each letter is drawn in turn, the drawing gives way to the five mode colours, and the film finishes on the product with the logo.</p>'
+                 '<p>The music is an original track made for the film, so it is free to use on YouTube, Instagram and X.</p></div>'
+                 '<table class="spec"><tbody><tr><th>File</th><td><code>film/out/MODE-Brand-Film.mp4</code> · 1920 × 1080 · 30 fps · H.264 + AAC · 30 s</td></tr>'
+                 '<tr><th>Master</th><td><code>MODE-brand-film-v2-1080p.mp4</code>, high bitrate, for editing and re-cuts</td></tr></tbody></table></div>'
+                 f'<figure class="film"><video src="assets/MODE-Brand-Film.mp4" poster="{img["film-poster"]}" controls playsinline preload="metadata"></video>'
+                 f'<img class="film-print" src="{img["film-poster"]}" alt="The film\'s final frame"></figure></div>'
+                 f'<figure class="board"><img src="{img["film-board"]}" alt="Eight frames from the film"></figure>', "Brand film")
+    # 24 files
     files = [("logo/", "SVG, PDF and PNG (512, 1024, 2048) in Carbon, Paper, Roast, black and white · small-size cut · monogram · with clear space"),
              ("icon/", "App icon (1024, 512, 192, 180) · favicon.svg, favicon.ico (16/32/48) · profile pictures"),
              ("colour/", "mode-palette.ase (Adobe swatches) · .json · .css custom properties"),
@@ -324,6 +336,7 @@ def build():
              ("packaging/mailer/ · tumbler/", "Lid, inside lid and tumbler wrap artwork"),
              ("packaging/renders/", "Seven 3D renders, 1800 × 1200"),
              ("digital/", "Instagram posts and story, e-commerce tile, website hero and header"),
+             ("film/out/", "MODE-Brand-Film.mp4 (30 s, 1080p, ready to post) · the high-bitrate master · the music"),
              ("fonts/", "Instrument Sans and IBM Plex Mono (SIL Open Font License)"),
              ("src/", "The generators. Edit mark.py or brand.py and rebuild: every file regenerates from one source")]
     P("files-pg", '<a id="files"></a><p class="mono eyebrow">Files</p><h2>What\'s in the kit.</h2><table class="spec files"><tbody>'
@@ -508,6 +521,8 @@ table{border-collapse:collapse;width:100%}
 .round{border-radius:50%}
 .hdr{margin:14px 0 0;border:1px solid var(--line)}
 .files th{min-width:0}
+.film{margin:0}.film video{width:100%;display:block;background:#151515}.film-print{display:none}
+.board{margin:18px 0 0}
 
 @media (max-width:900px){
   .split,.split.wide-r,.cover .in{grid-template-columns:minmax(0,1fr)}
@@ -543,6 +558,8 @@ table{border-collapse:collapse;width:100%}
   .web .hero-img img{max-height:500px;object-fit:cover}
   .web .hdr img{max-height:150px;object-fit:cover;object-position:top}
   .socgrid figure img{max-height:520px;object-fit:cover}
+  .film video{display:none}.film-print{display:block}
+  .board img{max-height:250px;width:auto}
 }
 </style>
 {{PAGES}}
