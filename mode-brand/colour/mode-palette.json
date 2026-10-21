@@ -1,0 +1,164 @@
+[
+  {
+    "role": "core",
+    "name": "Carbon",
+    "hex": "#151515",
+    "rgb": [
+      21,
+      21,
+      21
+    ],
+    "cmyk": [
+      0,
+      0,
+      0,
+      95
+    ],
+    "pantone": "Neutral Black C",
+    "use": "The logo, type, structure"
+  },
+  {
+    "role": "core",
+    "name": "Graphite",
+    "hex": "#4A4C4F",
+    "rgb": [
+      74,
+      76,
+      79
+    ],
+    "cmyk": [
+      0,
+      2,
+      0,
+      80
+    ],
+    "pantone": "Cool Gray 11 C",
+    "use": "Secondary type, cool grounds"
+  },
+  {
+    "role": "core",
+    "name": "Stone",
+    "hex": "#888B8D",
+    "rgb": [
+      136,
+      139,
+      141
+    ],
+    "cmyk": [
+      2,
+      0,
+      0,
+      52
+    ],
+    "pantone": "Cool Gray 8 C",
+    "use": "Captions, rules, quiet detail"
+  },
+  {
+    "role": "core",
+    "name": "Silver",
+    "hex": "#C8C9C7",
+    "rgb": [
+      200,
+      201,
+      199
+    ],
+    "cmyk": [
+      0,
+      0,
+      1,
+      24
+    ],
+    "pantone": "877 C (foil) / Cool Gray 3 C (flat)",
+    "use": "Foil on pack; flat grey on screen"
+  },
+  {
+    "role": "ground",
+    "name": "White",
+    "hex": "#FFFFFF",
+    "rgb": [
+      255,
+      255,
+      255
+    ],
+    "cmyk": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "pantone": "Paper white",
+    "use": "Screens, clean grounds"
+  },
+  {
+    "role": "ground",
+    "name": "Paper",
+    "hex": "#F4F2ED",
+    "rgb": [
+      244,
+      242,
+      237
+    ],
+    "cmyk": [
+      2,
+      2,
+      5,
+      2
+    ],
+    "pantone": "Warm Gray 1 C, 30% tint",
+    "use": "The default ground"
+  },
+  {
+    "role": "warm",
+    "name": "Oat",
+    "hex": "#E6DCCB",
+    "rgb": [
+      230,
+      220,
+      203
+    ],
+    "cmyk": [
+      8,
+      10,
+      18,
+      0
+    ],
+    "pantone": "7527 C",
+    "use": "Warm packaging ground"
+  },
+  {
+    "role": "warm",
+    "name": "Roast",
+    "hex": "#4B3D2F",
+    "rgb": [
+      75,
+      61,
+      47
+    ],
+    "cmyk": [
+      30,
+      45,
+      60,
+      65
+    ],
+    "pantone": "7533 C",
+    "use": "Coffee brown: dark grounds, the pour"
+  },
+  {
+    "role": "accent",
+    "name": "Tonic",
+    "hex": "#0E6B5E",
+    "rgb": [
+      14,
+      107,
+      94
+    ],
+    "cmyk": [
+      88,
+      20,
+      60,
+      30
+    ],
+    "pantone": "562 C",
+    "use": "Accent, 10% or less: links, small markers"
+  }
+]
